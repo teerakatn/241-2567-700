@@ -8,62 +8,55 @@ const port = 8000;
 app.use(bodyParser.json());
 
 let users = []
-let counter = 1
 
-app.get('/testdb', (req, res) => {
-  let conn = mysql.createConnection({
+let conn=null
+
+const initMySQL = async () => {
+   conn= await mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'webdb',
     port: 8820
-
-  }).then((conn) => {
-      conn
-      .query('SELECT * FROM user')
-      .then((results) => {
-        res.json(results[0])
-      })
-      .catch((error) => {
-        console.log('error', error.message)
-        res.status(500).json({error: 'Error fetching users'})
-    })
+  
   })
-})
+}
+
+/*app.get('/testdbnew',async (req, res) => {
+
+  try{
+    const results = await conn.query('SELECT * FROM user')
+    res.json(results[0])
+  } catch (error) { 
+    console.log('error', error.message)
+        res.status(500).json({error: 'Error fetching users'}) 
+
+  }
+})*/
 /*
 GET /users สำหรับ get users ทั้งหมดที่บันทึกไว้
 POST /user สำหรับสร้าง user ใหม่
 GET /users/:id สำหรับ ดึง users รายคนออกมา
 PUT /users/:id สำหรับแก้ไข users รายคน (ตาม id ที่บันทึกเข้าไป)
-DELETE /users/:id สำหรับลบ users รายคน ตาม id ที่บันทึกเข้าไป)
+DELETE /users/:id สำหรับลบ users รายคน ตาม id ที่บันทึกเข้าไป) 
 
 */
-
 // path = GET /users สำหรับ get users ทั้งหมดที่บันทึกไว้
-app.get('/users', (req, res) => {
-  const filterUsers = users.map(user => {
-    return {
-      id: user.id,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      fullname: user.firstname + ' ' + user.lastname
-
-    }
-  })
-  res.json(filterUsers)
+app.get('/users',async (req, res) => {
+  const results = await conn.query('SELECT * FROM user')
+  res.json(results[0])
 })
 
 // path = POST /user สำหรับสร้าง user ใหม่
-app.post('/user', (req, res) => {
+app.post('/users',async (req, res) => {
   let user = req.body;
-  user.id = counter;
-  counter+=1;
-  users.push(user);
+  const results= await conn.query('INSERT INTO user SET ?', user)
+  console.log('results', results)
   res.json({
-    message: 'Create new user successfully',
-    user: user
-  });
-})
+    message: 'Create user successfully',
+    data: results[0]
+  }) 
+}) 
 
 // path = GET /users/:id สำหรับ ดึง users รายคนออกมา
 app.get('/users/:id', (req, res) => {
@@ -73,7 +66,7 @@ app.get('/users/:id', (req, res) => {
 
 
   res.json(users[selectedIndex])
-})
+}) 
 
 // path: PUT /users/:id สำหรับแก้ไข users รายคน (ตาม id ที่บันทึกเข้าไป)
 app.put('/users/:id', (req, res) => {
@@ -110,6 +103,7 @@ app.delete('/users/:id', (req, res) => {
   })
 })
 
-app.listen(port, (req, res) => {
+app.listen(port,async (req, res) => {
+  await initMySQL()
   console.log('http server is running on port' + port)
 });
