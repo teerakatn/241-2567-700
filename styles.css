@@ -1,7 +1,4 @@
-
-
-
-    @font-face {
+  @font-face {
             font-family: "Kanit";
             src: url("./Kanit/Kanit-Regular.ttf");
         }
@@ -13,7 +10,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 50px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
 
         .container {
