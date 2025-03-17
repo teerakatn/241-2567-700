@@ -34,6 +34,7 @@ body {
 .Back_to_register:hover {
     background-color:rgb(51, 230, 140);
     color:white;
+    transform: scale(1.1);
 }
 
 
@@ -52,13 +53,13 @@ th, td {
     text-align: left;
     border-bottom: 2px solid #E0E0E0;
 }
-
+/*  หัวตาราง  */
 th {
     background-color:rgb(188, 231, 236); /* เขียวฟ้าอ่อน */
     color: #37474F;
     text-transform: uppercase;
 }
-
+/* แถวสลับสี  */
 tr:nth-child(even) {
     background-color:rgb(253, 230, 239); /* ชมพูอ่อน */
 }
@@ -67,7 +68,7 @@ tr:hover {
     background-color:#FFA0E2; /* เปลี่ยนสีเมื่อ Hover */
     transition: 0.5s;
 }
-
+/* แถว Hover */
 button {
     padding: 8px 12px;
     border: none;
@@ -83,6 +84,7 @@ button {
 .Edit:hover {/* เปลี่ยนสีเมื่อ Hover */
     background-color:rgb(145, 226, 137);
     color: black;
+    transform: scale(1.1);
 }
 
 .delete {
@@ -91,9 +93,7 @@ button {
 }
 .delete:hover {/* เปลี่ยนสีเมื่อ Hover */
     background-color:rgb(202, 40, 40);
-    color: white;
+    color: white;   
+    transform: scale(1.1);
 }
 
-button:hover {
-    opacity: 1;
-}

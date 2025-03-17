@@ -1,8 +1,6 @@
 const BASE_URL = 'http://localhost:8000'
 
 
-
-
 window.onload = async () => {
   await loadData()
 }
