@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 let users = []
-
+ 
 let conn=null
 
 const initMySQL = async () => {
@@ -22,7 +22,7 @@ const initMySQL = async () => {
     password: 'root',
     database: 'webdb',
     port: 8820
-  
+   
   })
 }
 const validateData = (userData) => {
@@ -43,7 +43,7 @@ const validateData = (userData) => {
     errors.push ('กรุณาเลือกความสนใจ')
   }
   if (!userData.description) {
-    errors.push ('กรุณากรอกขคำอธิบาย')
+    errors.push ('กรุณากรอกคำอธิบาย')
   }
   return errors
 }

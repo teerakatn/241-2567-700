@@ -62,7 +62,7 @@ const validateData = (userData) => {
     errors.push ('กรุณาเลือกความสนใจ')
   }
   if (!userData.description) {
-    errors.push ('กรุณากรอกขคำอธิบาย')
+    errors.push ('กรุณากรอกคำอธิบาย')
   }
   return errors
 }
